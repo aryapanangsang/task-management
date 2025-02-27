@@ -2,64 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Activity;
 use Illuminate\Http\Request;
+use App\Models\Activity;
+use DataTables;
 
 class ActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('activity'); // Buat tampilan ini
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getActivities(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Activity $activity)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Activity $activity)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Activity $activity)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Activity $activity)
-    {
-        //
+        if ($request->ajax()) {
+            $data = Activity::all();
+            return DataTables::of($data)
+                ->addIndexColumn() // Tambahkan kolom index otomatis
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 }

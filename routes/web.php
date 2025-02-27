@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Route;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +32,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+Route::get('/activities', [ActivityController::class, 'index']);
+Route::get('/get-activities', [ActivityController::class, 'getActivities'])->name('activities.get');
