@@ -13,6 +13,6 @@ class Status extends Model
 
     public function activiy()
     {
-        return $this->belongsTo(Activity::class);
+        return $this->hasMany(Activity::class);
     }
 }

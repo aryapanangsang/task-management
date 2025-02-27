@@ -37,3 +37,4 @@ require __DIR__.'/auth.php';
 
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::get('/get-activities', [ActivityController::class, 'getActivities'])->name('activities.get');
+Route::post('/activities/store-multiple', [ActivityController::class, 'storeMultiple'])->name('activities.storeMultiple');
